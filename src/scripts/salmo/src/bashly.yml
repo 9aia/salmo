@@ -69,3 +69,9 @@ commands:
   - salmo install
   - salmo install --dry-run
   - salmo install --file custom_packages.txt
+
+- name: pull
+  help: Pull packages and files
+
+  examples:
+  - salmo pull
