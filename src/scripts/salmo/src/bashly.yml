@@ -1,0 +1,71 @@
+name: salmo
+help: Simple framework to manage your personal desktop environment. Easily apply configuration files, install packages, and streamline your setup with flexible commands.
+version: 0.1.0
+
+commands:
+- name: prepare
+  help: Apply files and install packages
+
+  flags:
+  - long: --dry-run
+    short: -n
+    help: Show what would be done without making changes
+  - long: --config
+    short: -c
+    arg: path
+    default: "salmo.config.yml"
+    help: Path to the configuration file
+
+  examples:
+  - salmo prepare
+  - salmo prepare --dry-run
+
+- name: dev
+  alias: start
+  help: Same as prepare but with hot-reload
+
+  flags:
+  - long: --config
+    short: -c
+    arg: path
+    default: "salmo.config.yml"
+    help: Path to the configuration file
+
+  examples:
+  - salmo dev
+
+- name: build
+  help: Generate a custom production-ready CLI that includes usb-setup and post-boot-install commands
+
+  flags:
+  - long: --config
+    short: -c
+    arg: path
+    default: "salmo.config.yml"
+    help: Path to the configuration file
+
+  examples:
+  - salmo build
+
+- name: install
+  help: Install packages listed in pkglist.txt file
+
+  flags:
+  - long: --dry-run
+    short: -n
+    help: Show what would be installed without making changes
+  - long: --file
+    short: -f
+    arg: filepath
+    default: "pkglist.txt"
+    help: Path to the pkglist.txt file
+  - long: --config
+    short: -c
+    arg: configpath
+    default: "salmo.config.yml"
+    help: Path to the configuration file
+
+  examples:
+  - salmo install
+  - salmo install --dry-run
+  - salmo install --file custom_packages.txt

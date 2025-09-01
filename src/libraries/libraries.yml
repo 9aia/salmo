@@ -1,0 +1,10 @@
+logger:
+  help: Add custom functions for logging.
+  files:
+    - source: "logger/logger.sh"
+      target: "%{user_lib_dir}/logger.%{user_ext}"
+utils:
+  help: Add custom utilities.
+  files:
+    - source: "utils/utils.sh"
+      target: "%{user_lib_dir}/utils.%{user_ext}"

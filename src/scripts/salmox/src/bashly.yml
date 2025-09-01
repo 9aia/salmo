@@ -1,0 +1,40 @@
+name: salmox
+help: A tailored tool for setting up bootable USB drives and installing the desktop environment.
+version: 0.1.0
+
+commands:
+- name: setup_usb
+  alias: s
+  help: |
+    Setup bootable USB drive with Arch Linux. Downloads Arch Linux ISO and sets up a bootable USB drive using Ventoy.
+    
+    This command will:
+    - Download Arch Linux ISO via torrent
+    - Install Ventoy for USB boot management
+    - Set up the USB drive with Ventoy
+    - Copy the ISO to the USB drive
+
+  flags:
+  - long: --dry-run
+    short: -n
+    help: Show what would be done without making changes
+
+  examples:
+  - salmox setup_usb
+
+- name: install
+  alias: i
+  help: |
+    Install complete desktop environment. Installs and configures a complete desktop environment by:
+    - Cloning the DE repository
+    - Running installation scripts
+    - Running configuration scripts
+    - Setting up the system
+
+  flags:
+  - long: --dry-run
+    short: -n
+    help: Show what would be done without making changes
+
+  examples:
+  - salmox install
