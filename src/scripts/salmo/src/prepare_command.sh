@@ -1,14 +1,14 @@
 prepare_home_files() {
     log_info "Preparing home files..."
 
-    if [[ ! -d "$SALMO_FILES_DIR$HOME" ]]; then
-        log_warning "No home files directory found at $SALMO_FILES_DIR$HOME. Skipping home files preparation."
+    if [[ ! -d "$config_files_dir$HOME" ]]; then
+        log_warning "No home files directory found at $config_files_dir$HOME. Skipping home files preparation."
         return
     fi
 
-    # Recursively copies everything from the directory path formed by concatenating the value of $SALMO_FILES_DIR and $HOME into your home directory ($HOME). All files and subdirectories from the source are duplicated into the destination, preserving the directory structure. If files with the same name exist in the destination, they will be overwritten.
-    log_info "Copying all home files from $SALMO_FILES_DIR$HOME to $HOME"
-    rsync -av "$SALMO_FILES_DIR$HOME"/. "$HOME"/
+    # Recursively copies everything from the directory path formed by concatenating the value of $config_files_dir and $HOME into your home directory ($HOME). All files and subdirectories from the source are duplicated into the destination, preserving the directory structure. If files with the same name exist in the destination, they will be overwritten.
+    log_info "Copying all home files from $config_files_dir$HOME to $HOME"
+    rsync -av "$config_files_dir$HOME"/. "$HOME"/
 
     log_success "Home files copied successfully!"
 }
@@ -16,8 +16,8 @@ prepare_home_files() {
 prepare_non_home_files() {
     log_info "Copying all non-home files..."
 
-    # Copy all files except $HOME from $SALMO_FILES_DIR to /
-    sudo rsync -av --exclude="$HOME" "$SALMO_FILES_DIR"/ / 
+    # Copy all files except $HOME from $config_files_dir to /
+    sudo rsync -av --exclude="$HOME" "$config_files_dir"/ / 
 
     log_success "Non-home files copied successfully!"
 }

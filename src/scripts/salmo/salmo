@@ -414,14 +414,14 @@ salmo_prepare_command() {
   prepare_home_files() {
       log_info "Preparing home files..."
 
-      if [[ ! -d "$SALMO_FILES_DIR$HOME" ]]; then
-          log_warning "No home files directory found at $SALMO_FILES_DIR$HOME. Skipping home files preparation."
+      if [[ ! -d "$config_files_dir$HOME" ]]; then
+          log_warning "No home files directory found at $config_files_dir$HOME. Skipping home files preparation."
           return
       fi
 
-      # Recursively copies everything from the directory path formed by concatenating the value of $SALMO_FILES_DIR and $HOME into your home directory ($HOME). All files and subdirectories from the source are duplicated into the destination, preserving the directory structure. If files with the same name exist in the destination, they will be overwritten.
-      log_info "Copying all home files from $SALMO_FILES_DIR$HOME to $HOME"
-      rsync -av "$SALMO_FILES_DIR$HOME"/. "$HOME"/
+      # Recursively copies everything from the directory path formed by concatenating the value of $config_files_dir and $HOME into your home directory ($HOME). All files and subdirectories from the source are duplicated into the destination, preserving the directory structure. If files with the same name exist in the destination, they will be overwritten.
+      log_info "Copying all home files from $config_files_dir$HOME to $HOME"
+      rsync -av "$config_files_dir$HOME"/. "$HOME"/
 
       log_success "Home files copied successfully!"
   }
@@ -429,8 +429,8 @@ salmo_prepare_command() {
   prepare_non_home_files() {
       log_info "Copying all non-home files..."
 
-      # Copy all files except $HOME from $SALMO_FILES_DIR to /
-      sudo rsync -av --exclude="$HOME" "$SALMO_FILES_DIR"/ /
+      # Copy all files except $HOME from $config_files_dir to /
+      sudo rsync -av --exclude="$HOME" "$config_files_dir"/ /
 
       log_success "Non-home files copied successfully!"
   }
@@ -502,7 +502,7 @@ salmo_dev_command() {
           return
       fi
 
-      local rel_path="${file#$SALMO_FILES_DIR}" # e.g. /hypr/hyprland.conf
+      local rel_path="${file#$config_files_dir}" # e.g. /hypr/hyprland.conf
       local target_path="$DEST_CONFIG_DIR$rel_path" # e.g. ~/.config/hypr/hyprland.conf
 
       if [[ "$event" == "DELETE" ]]; then
@@ -668,10 +668,7 @@ salmo_dev_command() {
 salmo_build_command() {
 
   # src/build_command.sh
-  echo "# This file is located at 'src/build_command.sh'."
-  echo "# It contains the implementation for the 'salmo build' command."
-  echo "# The code you write here will be wrapped by a function named 'salmo_build_command()'."
-  echo "# Feel free to edit this file; your changes will persist when regenerating."
+  echo "Not implemented yet"
   inspect_args
 
   # TODO: generate dist/luis-de for setup_usb and install
@@ -682,10 +679,7 @@ salmo_build_command() {
 salmo_install_command() {
 
   # src/install_command.sh
-  echo "# This file is located at 'src/install_command.sh'."
-  echo "# It contains the implementation for the 'salmo install' command."
-  echo "# The code you write here will be wrapped by a function named 'salmo_install_command()'."
-  echo "# Feel free to edit this file; your changes will persist when regenerating."
+  echo "Not implemented yet"
   inspect_args
 
 }
@@ -1147,18 +1141,17 @@ before_hook() {
   # src/before.sh
 
   # Define default values
-  SALMO_FILES_DIR="./src/files"
-  SALMO_PACKAGES_FILE="./src/packages.yml"
-  SALMO_DEFAULT_PACKAGE_MANAGER="pacman"
-  SALMO_BUILD_OUT_DIR="./dist"
-  SALMO_BUILD_FILENAME="luis-de"
+  config_files_dir="./src/files"
+  config_packages_dir="./src/packages"
+  config_build_out_dir="./dist"
+  config_build_filename="luis-de"
 
   # Load configuration
   CONFIG_PATH="${args[--config]}"
 
   if [[ -f "$CONFIG_PATH" ]]; then
       log_info "Loading configuration from $CONFIG_PATH"
-      eval "$(yaml_load "$CONFIG_PATH" SALMO_)"
+      eval "$(yaml_load "$CONFIG_PATH" config_)"
   fi
 
 }

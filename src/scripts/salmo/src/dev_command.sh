@@ -7,7 +7,7 @@ handle_config_file_change() {
         return
     fi
     
-    local rel_path="${file#$SALMO_FILES_DIR}" # e.g. /hypr/hyprland.conf
+    local rel_path="${file#$config_files_dir}" # e.g. /hypr/hyprland.conf
     local target_path="$DEST_CONFIG_DIR$rel_path" # e.g. ~/.config/hypr/hyprland.conf
     
     if [[ "$event" == "DELETE" ]]; then

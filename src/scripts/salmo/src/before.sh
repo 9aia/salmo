@@ -9,16 +9,15 @@
 ## You can safely delete this file if you do not need it.
 
 # Define default values
-SALMO_FILES_DIR="./src/files"
-SALMO_PACKAGES_FILE="./src/packages.yml"
-SALMO_DEFAULT_PACKAGE_MANAGER="pacman"
-SALMO_BUILD_OUT_DIR="./dist"
-SALMO_BUILD_FILENAME="luis-de"
+config_files_dir="./src/files"
+config_packages_dir="./src/packages"
+config_build_out_dir="./dist"
+config_build_filename="luis-de"
 
 # Load configuration
 CONFIG_PATH="${args[--config]}"
 
 if [[ -f "$CONFIG_PATH" ]]; then
     log_info "Loading configuration from $CONFIG_PATH"
-    eval "$(yaml_load "$CONFIG_PATH" SALMO_)"
+    eval "$(yaml_load "$CONFIG_PATH" config_)"
 fi
